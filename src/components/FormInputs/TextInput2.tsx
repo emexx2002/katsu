@@ -34,7 +34,7 @@ const TextInput = ({
       {label && (
         <label
           htmlFor={restProps?.id || name}
-          className='text-xs font-normal font-satoshiRegular capitalize'
+          className='text-xs font-normal mb-1 font-satoshiRegular capitalize'
         >
           {label}
         </label>
@@ -56,7 +56,7 @@ const TextInput = ({
             containerClass={`w-full rounded border ${
               meta.touched && meta.error
                 ? "border-red-600"
-                : "border-[#470e812b]"
+                : "border-[#919EAB14]]"
             } p-1.5`}
             buttonClass={` !border-none !bg-white`}
             placeholder='+23420202020'
@@ -75,7 +75,7 @@ const TextInput = ({
             } ${rightIcon ? "pr-11" : "pr-3"} rounded bg-white border ${
               meta.touched && meta.error
                 ? "border-red-600"
-                : "border-[#470e812b]"
+                : "border-[#919EAB14]]"
             }`}
             {...field}
             {...restProps}

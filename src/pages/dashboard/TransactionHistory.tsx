@@ -3,8 +3,14 @@ import TabBar from '../../components/Tab/TabBar'
 import { Button } from '../../components/Button/Button'
 import { Table } from '../../components/Table/Table'
 import SearchInput from '../../components/FormInputs/SearchInput'
+import TransactionDetailsModal from '../../components/TransactionDetails/TransactionDetailsModal'
+import GenerateStatementModal from '../../components/Statement/GenerateStatementModal'
 
 const TransactionHistory = () => {
+  const [selectedTransaction, setSelectedTransaction] = React.useState<any>(null);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isStatementModalOpen, setIsStatementModalOpen] = React.useState(false);
+
   const columns = [
     {
       header: 'Transaction ID',
@@ -50,15 +56,29 @@ const TransactionHistory = () => {
     // ... more mock data can be added here
   ]
 
+  const handleViewDetails = (row: any) => {
+    setSelectedTransaction(row);
+    setIsModalOpen(true);
+  };
+
   const rowActions = (row: any) => [
     {
       name: 'View Details',
-      action: () => console.log('View details', row)
+      action: () => handleViewDetails(row)
     }
   ]
 
   return (
     <div className='w-full h-full space-y-4 px-8 py-8'>
+       <TransactionDetailsModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        transaction={selectedTransaction}
+      />
+      <GenerateStatementModal
+        isOpen={isStatementModalOpen}
+        onClose={() => setIsStatementModalOpen(false)}
+      />
       <div className='w-full flex items-center justify-between'>
         <h1 className='text-2xl font-bold'>Transaction History</h1>
         
@@ -71,6 +91,7 @@ const TransactionHistory = () => {
             label="Generate Statement"
             className='!bg-[#1977F214] font-semibold !text-primary'
             size="small"
+            onClick={() => setIsStatementModalOpen(true)}
           />
         </div>
         
@@ -106,7 +127,9 @@ const TransactionHistory = () => {
             }
           />
         </div>
-      </div>
+      </div>  
+
+     
     </div>
   )
 }

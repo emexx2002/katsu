@@ -12,19 +12,24 @@ body {
 }
 
 *{
+  scrollbar-width: thin;
   ::-webkit-scrollbar {
     width: 4px; /* You can adjust this value to make it thinner or wider */
     background-color: #f0f0f0a1;
   }
   ::-webkit-scrollbar-track {
-    background: #dd7df0; /* You can change the background color */
+    background: #d8eaf4; /* You can change the background color */
   }
   
   ::-webkit-scrollbar-thumb {
     background: #888; /* You can change the color of the scrollbar thumb */
     border-radius: 4px; /* You can add rounded corners to the thumb */
   }
+
   
+select {
+  background: #919EAB14;
+}
 }
 
 code {

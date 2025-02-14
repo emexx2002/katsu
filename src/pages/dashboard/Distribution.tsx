@@ -7,6 +7,7 @@ import TextInput from '../../components/FormInputs/TextInput2';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import Modal from '../../components/Modal/Modal';
+import SearchInput from '../../components/FormInputs/SearchInput';
 
 const Distribution = () => {
   const [showAddModal, setShowAddModal] = React.useState(false);
@@ -34,41 +35,7 @@ const Distribution = () => {
 
   return (
     <section>
-      <div className='w-full h-full space-y-4 px-8 py-8'>
-        <h1 className='text-2xl font-bold'>Distributors</h1>
-        <div className='w-full grid grid-cols-3 gap-3'>
-          <InfoCard2 header='Total Distributors' value='10' />
-          <InfoCard2 header='Active Distributors' value='9' />
-          <InfoCard2 header='Inactive Distributors' value='1' />
-        </div>
-
-        <div className='w-full min-h-[500px] bg-white rounded-md'>
-          <div className='flex  px-3 py-3 border-b border-gray-200 items-center justify-between'>
-            <h1 className='text-lg font-bold'>All Distributors</h1>
-
-            <Button onClick={() => setShowAddModal(true)} iconPosition='beforeText' icon={<FaPlus />} label='Add Distributor' />
-
-           
-
-          </div>
-          <Table
-            loading={false}
-            showCheckbox={true}
-            columns={[
-              { header: 'ID', view: (row:any) => row.id },
-              { header: 'Sub-account', view: (row:any) => row.subAccount },
-              { header: 'Account status', view: (row:any) => row.accountStatus },
-              { header: 'Account balance', view: (row:any) => row.accountBalance },
-              { header: 'Date Created', view: (row:any) => row.dateCreated },
-              { header: 'Status', view: (row:any) => row.status },
-              { header: 'Action', view: (row:any) => <Button label="Action" /> },
-            ]}
-            data={[]}
-          />
-
-        </div>
-
-        <Modal open={showAddModal} onClick={() => setShowAddModal(false)}>
+       <Modal open={showAddModal} onClick={() => setShowAddModal(false)}>
           {isCreating ? (
             <div className="py-10 px-6 text-center">
               <div className="animate-spin h-8 w-8 mx-auto mb-4 border-4 border-blue-500 border-t-transparent rounded-full"/>
@@ -163,6 +130,53 @@ const Distribution = () => {
             </div>
           )}
         </Modal>
+      <div className='w-full h-full space-y-4 px-8 py-8'>
+        <h1 className='text-2xl font-bold'>Distributors</h1>
+        <div className='w-full grid grid-cols-3 gap-3'>
+          <InfoCard2 header='Total Distributors' value='10' />
+          <InfoCard2 header='Active Distributors' value='9' />
+          <InfoCard2 header='Inactive Distributors' value='1' />
+        </div>
+
+        <div className='w-full min-h-[500px] bg-white rounded-md'>
+          <div className='flex  px-3 py-3 border-b border-gray-200 items-center justify-between'>
+            <h1 className='text-lg font-bold'>All Distributors</h1>
+
+            <Button onClick={() => setShowAddModal(true)} iconPosition='beforeText' icon={<FaPlus />} label='Add Distributor' />
+          </div>
+
+          <Table
+            loading={false}
+            showCheckbox={true}
+            topSlot={
+              <div className='flex items-center gap-4 p-4'>
+                <SearchInput 
+                  placeholder="Search by Amount, Transaction ID or sender/receiver name"
+                  className="flex-1"
+                />
+                <select className="h-10 border rounded px-3">
+                  <option>Account Status</option>
+                </select>
+                <select className="h-10 border rounded px-3">
+                  <option>Distributor Status</option>
+                </select>
+              </div>
+            }
+            columns={[
+              { header: 'ID', view: (row:any) => row.id },
+              { header: 'Sub-account', view: (row:any) => row.subAccount },
+              { header: 'Account status', view: (row:any) => row.accountStatus },
+              { header: 'Account balance', view: (row:any) => row.accountBalance },
+              { header: 'Date Created', view: (row:any) => row.dateCreated },
+              { header: 'Status', view: (row:any) => row.status },
+              { header: 'Action', view: (row:any) => <Button label="Action" /> },
+            ]}
+            data={[]}
+          />
+
+        </div>
+
+       
       </div>
     </section>
 
