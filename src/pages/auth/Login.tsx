@@ -5,9 +5,13 @@ import { HiUser } from "react-icons/hi";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { toast } from "react-hot-toast";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import usePasswordToggle from "../../hooks/usePasswordToggle";
 import TextInput from "../../components/FormInputs/TextInput2";
+import { useMutation } from "react-query";
+import { authServices } from "../../services/auth";
+import Spinner from "../../components/spinner/Spinner";
+import { AuthActions } from "../../zustand/auth.store";
 
 
 
@@ -21,6 +25,7 @@ const validationSchema = Yup.object({
 });
 
 export default function Login() {
+  const navigate = useNavigate();
   const { showPassword, handleClickShowPassword } = usePasswordToggle();
   const router = useLocation();
 
@@ -30,24 +35,41 @@ export default function Login() {
   const userLoginInfo = {
     email: "",
     password: "",
+    role: "MANUFACTURER_STAFF"
   };
 
+  const handleLogin = useMutation(
+    async (values: any) => {
+      return await authServices.login(values);
+    }, {
+    onSuccess: (data) => {
+      console.log(data)
 
- 
+      AuthActions.setProfile(data);
+      AuthActions.setToken(data.jwt)
+      toast.success("Login successful");
+      navigate('/distributors');
+    }
+  }
+  )
+
+
+
   return (
     <main className='h-full'>
-      <div  className=" h-full flex justify-center items-center">
+      <div className=" h-full flex justify-center items-center">
         <div className='bg-white rounded-2xl lg:w-[560px] py-11 px-9'>
           <h2 className='text-2xl font-extrabold font-satoshi text-black mb-2'>
             Sign In
           </h2>
-          
+
           <Formik
             initialValues={userLoginInfo}
             validationSchema={validationSchema}
             onSubmit={(values, formikActions) => {
               if (values) {
                 // handleSubmit(values);
+                handleLogin.mutate(values)
               }
             }}
           >
@@ -59,13 +81,13 @@ export default function Login() {
                       name='email'
                       type='email'
                       placeholder='Email address'
-                      
+
                     />
                     <TextInput
                       name='password'
                       type={showPassword ? "text" : "password"}
                       placeholder='Enter your password'
-                      
+
                       rightIcon={
                         showPassword ? (
                           <AiOutlineEye size={24} className='cursor-pointer' />
@@ -98,8 +120,8 @@ export default function Login() {
                     disabled={false}
                     className='bg-primary w-full text-white inline-flex items-center justify-center text-center p-2.5 font-extrabold font-satoshiBold disabled:bg-opacity-50'
                   >
-                    
-                      Sign In
+
+                    {handleLogin.isLoading ? <Spinner /> : "Sign In"}
                   </button>
                   {/* <p className='text-sm text-left'>
                     Don't have an account?{" "}

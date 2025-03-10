@@ -1,5 +1,5 @@
 export const Config = {
-  apiUrl: "/api/v1/",
+  apiUrl: "https://katsu.dev.paymentshop.io/api/v1/",
   // defaults: {
   //   paginator: {
   //     pageKey: "page",
