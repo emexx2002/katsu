@@ -13,5 +13,5 @@ export const AdminLayout = () => {
 export const sidebar: SideItem[] = [
   { name: "Distributors", path: "/distributors", iconName: "distributor" },
   { name: "Transaction history", path: "/transaction-history", iconName: "transaction" },
-  
+
 ];

@@ -6,6 +6,8 @@ export const authApiRoutes = {
   forgotPassword: "/auth/forgot-password",
   resetPassword: "/auth/reset-password",
   sendOtp: "/auth/send-otp",
+  changePassword: "/change-password",
+
   // google: "/auth/login/google"
 }
 
@@ -18,11 +20,11 @@ export const squadApiRoutes = {
   addNewSquadPosition: (id: string) => `/ajosquad/squad/${id}/update-position`,
   updateSquadMemberPosition: (squadId: string, squadMemberId: string) => `/ajosquad/squad/${squadId}/update-position/${squadMemberId}`,
   updateSquadMemberGuarantor: (squadId: string) => `/ajosquad/squad/${squadId}/update-guarantor`,
-  connectBank : "/ajosquad/payments/connect-bank",
+  connectBank: "/ajosquad/payments/connect-bank",
   getSquadStats: "/ajosquad/squad/stats",
   getSquadStatsByStatus: (status: string) => `/ajosquad/squad/stats/status?status=${status}`,
   getSquadMembers: "/ajosquad/squad/squadmembers",
-  getUserSquad: (id: string) =>  `/ajosquad/squad/user/${id}`,
+  getUserSquad: (id: string) => `/ajosquad/squad/user/${id}`,
   getUserSquads: "/ajosquad/squad/me",
 }
 
@@ -33,7 +35,6 @@ export const userApiRoutes = {
     getAllUsers: "/user",
     updateUserPersonal: (userId: string) => `/user/${userId}/personal-info`,
     updateUserEmployer: (userId: string) => `/user/${userId}/employer-info`,
-    changePassword: (userId: string) => `/user/${userId}/update-password`,
     countAll: "/user/countAll"
 
   },
@@ -82,3 +83,13 @@ export const contractAgreementApiRoutes = {
     agreeOrRejectContract: (contractId: string) => `/user/contract-agreement/${contractId}`,
   }
 }
+
+export const distributorapiRoutes = {
+  distributors: '/distributors',
+  distributor: '/distributor',
+};
+
+export const apiRoutes = {
+  transactions: '/transactions',
+  transaction: '/transaction'
+};

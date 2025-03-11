@@ -1,0 +1,68 @@
+import { createApiClient } from "../utils/api";
+import { apiRoutes } from "./routes";
+import { paramsObjectToQueryString } from "../utils/helpers";
+export interface ProcessError {
+    message: string;
+    timestamp: string;
+}
+
+export interface Transaction {
+    id: number;
+    fee: number;
+    amount: number;
+    recipientAccountNumber: string;
+    reference: string;
+    transactionTime: string;
+    fromBankCode: string;
+    fromAccountNumber: string;
+    fromAccountName: string;
+    fromAccountBvn: string;
+    channel: string;
+    bank: string;
+    meta: string;
+    processErrors: ProcessError[];
+    createdDate: string;
+    lastModifiedBy: number;
+    account?: any;
+    virtualAccount?: any;
+}
+
+export interface TransactionResponse {
+    totalElements: number;
+    totalPages: number;
+    pageable: any;
+    numberOfElements: number;
+    size: number;
+    content: Transaction[];
+    number: number;
+    sort: any[];
+    first: boolean;
+    last: boolean;
+    empty: boolean;
+}
+
+export const transactionServices = {
+    getAllTransactions: async (payload: any) => {
+        try {
+            console.log(`Fetching transactions from: ${apiRoutes.transactions}`);
+            const response = await createApiClient().get(apiRoutes.transactions + paramsObjectToQueryString(payload));
+            console.log("Transactions API Response:", response.data);
+            return response;
+        } catch (error) {
+            console.error("Error fetching transactions:", error);
+            throw error;
+        }
+    },
+
+    getTransactionById: async (id: number) => {
+        try {
+            console.log(`Fetching transaction with ID ${id} from: ${apiRoutes.transaction}/${id}`);
+            const response = await createApiClient().get(`${apiRoutes.transaction}/${id}`);
+            console.log("Transaction Details API Response:", response.data);
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching transaction details:", error);
+            throw error;
+        }
+    }
+}; 

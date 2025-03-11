@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 import { AdminLayout } from "../pages/dashboard/layout/AdminLayout";
 import { LazyRoute } from "../utils/helpers";
 import { IModuleRouter } from "./index";
+import DistributorDetails from "../pages/dashboard/DistributorDetails";
 
 export const AdminDashRouter: IModuleRouter = {
   key: "dashboard",
@@ -24,13 +25,11 @@ export const AdminDashRouter: IModuleRouter = {
       },
       () => import("../pages/dashboard/Distribution")
     ),
-    LazyRoute(
-      {
-        path: "/distributors/:id",
-      },
-      () => import("../pages/dashboard/DistributorDetails")
-    ),
-    
+    {
+      path: "/distributors/:id",
+      element: <DistributorDetails />
+    },
+
     {
       path: "*",
       element: <div>Not found</div>,

@@ -9,15 +9,17 @@ export const LayoutOutlet = () => {
     </Suspense>
   );
 };
-export const AppFallback = (props: { screen?: boolean }) => {
+
+export const AppFallback = ({ screen }: { screen?: boolean }) => {
   return (
     <div
-      className={clsx(
-        props.screen ? "h-screen w-screen" : "h-full w-full",
-        " grid place-content-center place-items-center bg-transparent"
-      )}
+      className={`flex items-center justify-center ${screen ? 'h-screen' : 'h-full'}`}
+      style={{ minHeight: screen ? '100vh' : '400px' }}
     >
-      This is the fallback page
+      <div className="text-gray-500 text-lg">
+        <div className="animate-spin h-8 w-8 border-4 border-blue-500 rounded-full border-t-transparent mx-auto mb-4"></div>
+        <p className="text-center">Loading...</p>
+      </div>
     </div>
   );
 };
