@@ -34,7 +34,6 @@ export default function ChangePassword() {
     const queryParams = new URLSearchParams(location.search);
     const emailFromURL = queryParams.get('email');
 
-=
 
     const initialValues = {
         oldPassword: '',
