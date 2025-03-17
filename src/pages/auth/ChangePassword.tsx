@@ -34,9 +34,7 @@ export default function ChangePassword() {
     const queryParams = new URLSearchParams(location.search);
     const emailFromURL = queryParams.get('email');
 
-    // Log the email for debugging
-    console.log("Email from profile:", profile?.email);
-    console.log("Email from URL:", emailFromURL);
+=
 
     const initialValues = {
         oldPassword: '',

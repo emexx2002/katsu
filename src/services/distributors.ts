@@ -68,12 +68,9 @@ export const distributorServices = {
     const token = JSON.parse(sessionStorage.getItem("ecap-auth") || "{}").state?.token;
 
     try {
-      console.log(`Fetching distributors from: ${distributorapiRoutes.distributors}`);
       const response = await createApiClient().get(distributorapiRoutes.distributors + paramsObjectToQueryString(payload));
-      console.log("API Response:", response.data);
       return response;
     } catch (error) {
-      console.error("Error fetching distributors:", error);
       throw error;
     }
   },
@@ -85,21 +82,16 @@ export const distributorServices = {
 
   getDistributorById: async (id: number) => {
     try {
-      console.log(`Fetching distributor with ID ${id} from: ${distributorapiRoutes.distributor}/${id}`);
       const response = await createApiClient().get(`${distributorapiRoutes.distributor}/${id}`);
-      console.log("Single Distributor API Response:", response.data);
       return response.data;
     } catch (error) {
-      console.error("Error fetching distributor details:", error);
       throw error;
     }
   },
 
   getDistributorAccount: async (distributorId: number) => {
     try {
-      console.log(`Fetching distributor account for ID ${distributorId} from: ${distributorapiRoutes.distributor}/${distributorId}/account`);
       const response = await createApiClient().get(`${distributorapiRoutes.distributor}/${distributorId}/account`);
-      console.log("Distributor Account API Response:", response.data);
 
       // Check if we received an array with data
       if (Array.isArray(response.data) && response.data.length > 0) {
@@ -108,20 +100,17 @@ export const distributorServices = {
       // If empty array or non-array, return null to indicate no account
       return null;
     } catch (error) {
-      console.error("Error fetching distributor account:", error);
       return null;
     }
   },
 
   createDistributor: async (distributorData: any, createAccount: boolean = false) => {
     try {
-      console.log(`Creating distributor with data:`, distributorData, `createAccount: ${createAccount}`);
       const response = await createApiClient().post(
         distributorapiRoutes.distributors,
         distributorData,
         { params: { createAccount } }
       );
-      console.log("Create Distributor API Response:", response.data);
       return response.data;
     } catch (error) {
       console.error("Error creating distributor:", error);
@@ -131,12 +120,9 @@ export const distributorServices = {
 
   getDistributorStats: async () => {
     try {
-      console.log(`Fetching distributor stats from: ${distributorapiRoutes.distributor}/stats`);
       const response = await createApiClient().get(`${distributorapiRoutes.distributors}/stats`);
-      console.log("Distributor Stats API Response:", response.data);
       return response.data;
     } catch (error) {
-      console.error("Error fetching distributor stats:", error);
       // Return default stats object to handle errors gracefully
       return {
         total: 0,

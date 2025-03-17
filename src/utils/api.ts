@@ -11,7 +11,7 @@ export const createApiClient = (auth = true) => {
   http.interceptors.request.use(
     function (config: any) {
       const token: any = useAuth.getState().token;
-      
+
 
       if (token) {
         config.headers = {
@@ -20,8 +20,6 @@ export const createApiClient = (auth = true) => {
 
         // config.headers = {...config.headers, 'content-Type':'application/x-www-form-urlencoded'}
       }
-      console.log(config.headers, token);
-      // console.log(config);
       return config;
     },
     function (error) {

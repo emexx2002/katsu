@@ -45,28 +45,25 @@ export default function Login() {
       return await authServices.login(values);
     }, {
     onSuccess: (data) => {
-      console.log("Login response:", data);
+
 
       // Check user data structure
       const email = window.sessionStorage.getItem('login_email') || '';
-      console.log("Using email:", email);
+
 
       // Store email explicitly
       AuthActions.setEmail(email);
 
       toast.success("Login successful");
 
-      console.log("Onboarding step:", data.onboardingStep);
 
       if (data.onboardingStep === "CHANGE_PASSWORD") {
-        console.log("Redirecting to change password");
         window.location.href = '/change-password'; // Use hard redirect\
         // navigate('/change-password');
 
       } else {
         AuthActions.setProfile(data);
         AuthActions.setToken(data.jwt);
-        console.log("Redirecting to distributors");
         navigate('/distributors');
       }
     }

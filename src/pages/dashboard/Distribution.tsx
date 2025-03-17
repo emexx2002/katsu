@@ -52,7 +52,6 @@ const Distribution = () => {
     distributorServices.getAllDistributors,
     {
       onSuccess: (data: any) => {
-        // console.log(data.data);
       },
       keepPreviousData: false,
       refetchOnWindowFocus: false,
@@ -78,15 +77,12 @@ const Distribution = () => {
 
   useEffect(() => {
     if (distributorsData) {
-      console.log("Loaded distributor data:", distributorsData);
     }
     if (distributorsError) {
-      console.error("Error loading distributors:", distributorsError);
     }
   }, [distributorsData, distributorsError]);
 
   const handleCreateDistributor = async (values: any, { resetForm }: any) => {
-    console.log("Creating distributor:", values);
     setIsCreating(true);
     try {
       const payload = [{

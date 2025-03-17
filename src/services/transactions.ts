@@ -44,24 +44,18 @@ export interface TransactionResponse {
 export const transactionServices = {
     getAllTransactions: async (payload: any) => {
         try {
-            console.log(`Fetching transactions from: ${apiRoutes.transactions}`);
             const response = await createApiClient().get(apiRoutes.transactions + paramsObjectToQueryString(payload));
-            console.log("Transactions API Response:", response.data);
             return response;
         } catch (error) {
-            console.error("Error fetching transactions:", error);
             throw error;
         }
     },
 
     getTransactionById: async (id: number) => {
         try {
-            console.log(`Fetching transaction with ID ${id} from: ${apiRoutes.transaction}/${id}`);
             const response = await createApiClient().get(`${apiRoutes.transaction}/${id}`);
-            console.log("Transaction Details API Response:", response.data);
             return response.data;
         } catch (error) {
-            console.error("Error fetching transaction details:", error);
             throw error;
         }
     }

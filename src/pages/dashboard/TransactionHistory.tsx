@@ -38,7 +38,6 @@ const TransactionHistory = () => {
     transactionServices.getAllTransactions,
     {
       onSuccess: (data: any) => {
-        // console.log(data.data);
       },
       keepPreviousData: false,
       refetchOnWindowFocus: false,

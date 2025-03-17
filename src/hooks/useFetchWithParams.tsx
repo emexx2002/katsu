@@ -2,7 +2,6 @@ import { useQuery } from "react-query";
 
 const useFetchWithParams = (key: any, apiFunction: any, config: any) => {
 	const fetchFunction = async ({ queryKey }: { queryKey: any }) => {
-		// console.log(queryKey);
 		const [, params] = queryKey;
 		//  // Create a timeout promise that rejects after 5 seconds
 		// const timeoutPromise = new Promise((_, reject) =>
@@ -14,8 +13,7 @@ const useFetchWithParams = (key: any, apiFunction: any, config: any) => {
 		// 	timeoutPromise,
 		// 	]);
 
-		// console.log(params);
-		// console.log(...Object.values(params));
+
 		const response = await apiFunction(params);
 		return response.data;
 	};
