@@ -40,18 +40,34 @@ export default function Login() {
 
   const handleLogin = useMutation(
     async (values: any) => {
+      // Store email for later access
+      window.sessionStorage.setItem('login_email', values.email);
       return await authServices.login(values);
     }, {
     onSuccess: (data) => {
-      console.log(data)
 
-      AuthActions.setProfile(data);
-      AuthActions.setToken(data.jwt)
+
+      // Check user data structure
+      const email = window.sessionStorage.getItem('login_email') || '';
+
+
+      // Store email explicitly
+      AuthActions.setEmail(email);
+
       toast.success("Login successful");
-      navigate('/distributors');
+
+
+      if (data.onboardingStep === "CHANGE_PASSWORD") {
+        window.location.href = '/change-password'; // Use hard redirect\
+        // navigate('/change-password');
+
+      } else {
+        AuthActions.setProfile(data);
+        AuthActions.setToken(data.jwt);
+        navigate('/distributors');
+      }
     }
-  }
-  )
+  });
 
 
 
