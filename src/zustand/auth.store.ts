@@ -9,20 +9,48 @@ interface Auth {
   password: string;
 }
 
-export const useAuth = create(
+interface UserProfile {
+  id?: number;
+  name?: string;
+  email?: string;
+  onboardingStep?: string;
+  // Add other profile properties as needed
+}
+
+// State interface with only the state properties
+interface AuthStateProps {
+  loggedIn: boolean;
+  token: string | null;
+  profile: any | null;
+  email: string | null;
+  role: ROLE | null | string;
+}
+
+// Full interface including actions
+interface AuthState extends AuthStateProps {
+  setLoggedIn: (value: boolean) => void;
+  setToken: (token: string) => void;
+  setUserProfile: (profile: any) => void;
+  setUserRoleType: (role: string) => void;
+  logout: () => void;
+  setEmail: (email: string) => void;
+}
+
+export const useAuth = create<AuthState>()(
   persist(
     combine(
       {
         loggedIn: false,
-        token: null as string | null | AxiosBasicCredentials,
+        token: null,
         profile: null,
+        email: null,
         role: null as ROLE | null | string,
-      },
+      } as AuthStateProps,
       (set) => ({
         setLoggedIn: (value: boolean) => {
           set({ loggedIn: value });
         },
-        setToken: (token: string | AxiosBasicCredentials | any) => {
+        setToken: (token: string) => {
           set({ token });
         },
         setUserProfile: (profile: any) => {
@@ -38,7 +66,10 @@ export const useAuth = create(
             profile: null,
             role: null,
           });
-          if(useAuth.getState().loggedIn) window.location.replace("/login")
+          if (useAuth.getState().loggedIn) window.location.replace("/login")
+        },
+        setEmail: (email: string) => {
+          set({ email });
         },
       })
     ),
@@ -53,7 +84,7 @@ export const AuthActions = {
   logout: () => {
     useAuth.getState().logout();
   },
-  setToken: (token: string | AxiosBasicCredentials) => {
+  setToken: (token: string) => {
     useAuth.getState().setToken(token);
   },
   setProfile: (profile: any) => {
@@ -61,5 +92,8 @@ export const AuthActions = {
   },
   setRole: (role: string) => {
     useAuth.setState({ role });
+  },
+  setEmail: (email: string) => {
+    useAuth.getState().setEmail(email);
   },
 };

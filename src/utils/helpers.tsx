@@ -166,14 +166,27 @@ export function paramsObjectToQueryString(payload: any) {
 
 }
 
-  interface PaginationInfo {
-    currentPage: number;
-    pageSize: number;
-  }
+interface PaginationInfo {
+  currentPage: number;
+  pageSize: number;
+}
 
 
-  export const generateSerialNumber = (index: number, pageInfo: PaginationInfo): number => {
-    const { currentPage, pageSize } = pageInfo;
-    return (currentPage - 1) * pageSize + index + 1;
-  };
+export const generateSerialNumber = (index: number, pageInfo: PaginationInfo): number => {
+  const { currentPage, pageSize } = pageInfo;
+  return (currentPage - 1) * pageSize + index + 1;
+};
 
+export const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat('en-NG', {
+    style: 'currency',
+    currency: 'NGN',
+    minimumFractionDigits: 2
+  }).format(amount);
+};
+
+export const extractInitials = (val: string) => {
+  const _first = val.split(" ")[0].slice(0, 1);
+  const _second = val?.split(" ")[1]?.slice(0, 1);
+  return `${_first.toLocaleUpperCase()}${_second && _second.toLocaleUpperCase()}`;
+};
